@@ -3,15 +3,14 @@ import numpy as np
 import wave
 from time import time as timer
 import struct
-import math
 
 audio = wave.open('chips.wav', 'wb')
 audio.setnchannels(1)
 audio.setframerate(2400)
 audio.setsampwidth(2)
 # Captura de video a traves de la webcam
-#cap = cv2.VideoCapture('./chips.mp4')
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('../resources/chips.mp4')
+# cap = cv2.VideoCapture(0)
 
 fps = cap.get(cv2.CAP_PROP_FPS)
 fps = 24 / 100

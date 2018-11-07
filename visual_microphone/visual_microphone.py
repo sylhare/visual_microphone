@@ -4,7 +4,7 @@ from time import time as timer
 
 
 class VisualMicrohone(object):
-    def __init__(self, upper, lower, video=0):
+    def __init__(self, upper, lower, video):
         self.capture = self.setup_capture(video)
         self.start = 0
         self.mask = None
@@ -15,7 +15,8 @@ class VisualMicrohone(object):
         self.amplitudes = []
 
     @staticmethod
-    def setup_capture(video=0):
+    def setup_capture(video):
+        """Give path to the video or 0 for webcam"""
         return cv2.VideoCapture(video)
 
     def escape_on_q(self):
@@ -70,6 +71,7 @@ class VisualMicrohone(object):
 
     def process_video(self):
         while self.capture.isOpened():
+            print("yeah")
             self.start = timer()
             _, img = self.capture.read()
             cv2.imshow("Color Tracking", img)
@@ -82,6 +84,6 @@ class VisualMicrohone(object):
 
 
 if __name__ == "__main__":
-    vm = VisualMicrohone([0, 0, 0], [255, 255, 255])
+    vm = VisualMicrohone([0, 0, 0], [255, 255, 255], "../resources/chips.mp4")
     vm.process_video()
 

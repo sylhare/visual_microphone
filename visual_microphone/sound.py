@@ -4,7 +4,7 @@ import struct
 
 class Sound(object):
 
-    def __init__(self, sound_file='sounds.wav', channels=1, framerate=2400, amp_width=2, amp_multiplier=6000):
+    def __init__(self, sound_file='sounds.wav', channels=1, framerate=2400, amp_width=2, amp_multiplier=6000.0):
         self.audio = wave.open(sound_file, 'wb')
         self.audio.setnchannels(channels)
         self.audio.setframerate(framerate)
@@ -16,6 +16,7 @@ class Sound(object):
 
 
 if __name__ == "__main__":
-    s = Sound()
-    for i in range(0, 1000):
-        s.write(0.4)
+    pass
+    # s = Sound()
+    # for i in range(0, 1000):
+    #     s.write(0.4)
