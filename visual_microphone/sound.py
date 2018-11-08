@@ -10,13 +10,18 @@ class Sound(object):
         self.audio.setframerate(framerate)
         self.audio.setsampwidth(amp_width)
         self.amp_multiplier = amp_multiplier
+        self.offset = 392
 
     def write(self, amplitude):
         self.audio.writeframes(struct.pack('h', int(amplitude * self.amp_multiplier / 2)))
 
+    def trim_amplitude(self, amplitude):
+        amplitude = amplitude - self.offset
+        if abs(amplitude) > 10:
+            amplitude = 0
+
+        return amplitude / 10.0
+
 
 if __name__ == "__main__":
     pass
-    # s = Sound()
-    # for i in range(0, 1000):
-    #     s.write(0.4)
