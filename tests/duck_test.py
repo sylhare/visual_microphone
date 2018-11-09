@@ -20,18 +20,16 @@ while cap.isOpened():
 
     for pic, contour in enumerate(contours):
         area = image.get_area_from_contour(contour)
-        if (area > 100000 and area < 103000):
-            img = image.add_rectangle_of_contour_on_image(img, contour, area)
-            cx, cy = image.get_mass_center_of_contour(contour)
+
+        if 100000 < area < 103000:
+            img = image.draw_rectangular_contour(img, contour, area)
+            cx, cy = image.get_mass_center(contour)
 
             cy = s.trim_amplitude(cy)
             s.write(cy)
 
-    cv2.imshow("Color Tracking", img)
-    if cv2.waitKey(10) & 0xFF == ord('q'):
-        cap.release()
-        cv2.destroyAllWindows()
-        break
+    image.show_image(img, "duck test")
+    image.escape_on_q(cap)
 
     diff = timer() - start
     while diff < fps:
