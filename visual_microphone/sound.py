@@ -10,17 +10,21 @@ class Sound(object):
         self.audio.setframerate(framerate)
         self.audio.setsampwidth(amp_width)
         self.amp_multiplier = amp_multiplier
-        self.offset = 392
+        self.offset = 0
+        self.low_pass = 10
 
     def write(self, amplitude):
         self.audio.writeframes(struct.pack('h', int(amplitude * self.amp_multiplier / 2)))
 
+    def set_offset(self, offset):
+        self.offset = offset
+
     def trim_amplitude(self, amplitude):
         amplitude = amplitude - self.offset
-        if abs(amplitude) > 10:
+        if abs(amplitude) > self.low_pass:
             amplitude = 0
 
-        return amplitude / 10.0
+        return amplitude
 
 
 if __name__ == "__main__":

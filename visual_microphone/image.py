@@ -23,11 +23,19 @@ def erode_mask(mask):
     return cv2.erode(mask, kernel, iterations=1)
 
 
+def bitwise(eroded_mask, img):
+    return cv2.bitwise_and(img, img, mask=eroded_mask)
+
+
 def get_contours(eroded_mask):
     # Return the contourns of the objects detected with the eroded mask
     (_, contours, _) = cv2.findContours(eroded_mask, cv2.RETR_TREE,
                                         cv2.CHAIN_APPROX_SIMPLE)
     return contours
+
+
+def create_coutours(img):
+    return get_contours(erode_mask(create_mask(img)))
 
 
 def get_area_from_contour(contour):
@@ -48,11 +56,11 @@ def draw_rectangular_contour(img, contour, area):
 
 def get_mass_center(contour):
     # Get the mass center
-    M = cv2.moments(contour)
-    cx = int(M['m10'] / M['m00'])
-    cy = int(M['m01'] / M['m00'])
+    mass_center = cv2.moments(contour)
+    x = int(mass_center['m10'] / mass_center['m00'])
+    y = int(mass_center['m01'] / mass_center['m00'])
 
-    return cx, cy
+    return x, y
 
 
 def draw_center(img, contour):
