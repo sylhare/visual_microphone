@@ -3,3 +3,4 @@ resources/VMSlim/*
 .DS_Store
 .idea/*
 */__pycache__/
+*/.pytest_cache/*
